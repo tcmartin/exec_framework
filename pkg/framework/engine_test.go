@@ -5,6 +5,7 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"go.uber.org/zap"
 )
 
@@ -25,7 +26,8 @@ func (n *mockNode) Execute(ctx *Context, inputs []map[string]interface{}) ([]map
 
 func TestWorkflow_Run(t *testing.T) {
 	// Create a new registry for each test to avoid duplicate metric registration.
-	metrics := NewMetrics()
+	reg := prometheus.NewRegistry()
+	metrics := NewMetrics(reg)
 
 	ctx := &Context{
 		Ctx:     context.Background(),
@@ -106,7 +108,8 @@ func TestWorkflow_Run(t *testing.T) {
 }
 
 func TestWorkflow_Run_DataPassing(t *testing.T) {
-	metrics := NewMetrics()
+	reg := prometheus.NewRegistry()
+	metrics := NewMetrics(reg)
 
 	ctx := &Context{
 		Ctx:     context.Background(),

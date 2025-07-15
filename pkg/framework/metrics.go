@@ -11,7 +11,7 @@ type Metrics struct {
 }
 
 // NewMetrics registers and returns collectors
-func NewMetrics() *Metrics {
+func NewMetrics(reg *prometheus.Registry) *Metrics {
     m := &Metrics{
         NodeDuration: prometheus.NewHistogramVec(
             prometheus.HistogramOpts{Namespace: "workflow", Name: "node_duration_seconds"},
@@ -22,6 +22,6 @@ func NewMetrics() *Metrics {
             []string{"node"},
         ),
     }
-    prometheus.MustRegister(m.NodeDuration, m.NodeErrors)
+    reg.MustRegister(m.NodeDuration, m.NodeErrors)
     return m
 }

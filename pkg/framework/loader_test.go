@@ -47,16 +47,14 @@ connections:
 func TestConvertN8nJSON(t *testing.T) {
 	jsonContent := `{
 		"connections": {
-			"9": {
-				"main": [
-					[
-						{
-							"node": "10",
-							"type": "main"
-						}
-					]
+			"9": [
+				[
+					{
+						"node": "10",
+						"type": "main"
+					}
 				]
-			}
+			]
 		}
 	}`
 	tmpfile, err := ioutil.TempFile("", "test.json")
