@@ -2,6 +2,7 @@ package nodes
 
 import (
 	"context"
+	"errors"
 	"go-workflow/pkg/framework"
 	"testing"
 
@@ -60,5 +61,29 @@ func TestDynamoDBUpsert_Execute(t *testing.T) {
 	}
 	if capturedInput.Item["id"].(*types.AttributeValueMemberS).Value != "123" {
 		t.Errorf("expected id to be 123, got %s", capturedInput.Item["id"].(*types.AttributeValueMemberS).Value)
+	}
+}
+
+func TestDynamoDBUpsert_Execute_PutItemError(t *testing.T) {
+	node := &DynamoDBUpsert{TableName: "test-table"}
+
+	mockClient := &mockDynamoDBClient{
+		putItem: func(ctx context.Context, params *dynamodb.PutItemInput, optFns ...func(*dynamodb.Options)) (*dynamodb.PutItemOutput, error) {
+			return nil, errors.New("PutItem error")
+		},
+	}
+
+	ctx := &framework.Context{
+		Ctx:            context.Background(),
+		DynamoDBClient: mockClient,
+	}
+
+	inputs := []map[string]interface{}{{"id": "123", "name": "test"}}
+	_, err := node.Execute(ctx, inputs)
+	if err == nil {
+		t.Fatal("expected an error, but got nil")
+	}
+	if err.Error() != "PutItem error" {
+		t.Errorf("expected PutItem error, got %v", err)
 	}
 }

@@ -44,6 +44,35 @@ connections:
 	}
 }
 
+func TestLoadFromYAML_Error(t *testing.T) {
+	// Test case for non-existent file
+	_, err := LoadFromYAML("non_existent_file.yaml")
+	if err == nil {
+		t.Fatal("expected an error for non-existent file, but got nil")
+	}
+
+	// Test case for invalid YAML content
+	tmpfile, err := ioutil.TempFile("", "invalid.yaml")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Remove(tmpfile.Name())
+
+	if _, err := tmpfile.Write([]byte(`invalid: - yaml
+	content
+`)); err != nil {
+		t.Fatal(err)
+	}
+	if err := tmpfile.Close(); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = LoadFromYAML(tmpfile.Name())
+	if err == nil {
+		t.Fatal("expected an error for invalid YAML, but got nil")
+	}
+}
+
 func TestConvertN8nJSON(t *testing.T) {
 	jsonContent := `{
 		"connections": {
@@ -83,5 +112,32 @@ func TestConvertN8nJSON(t *testing.T) {
 	}
 	if def.Connections["9"][0] != "10" {
 		t.Errorf("expected connection from node 9 to node 10, got %s", def.Connections["9"][0])
+	}
+}
+
+func TestConvertN8nJSON_Error(t *testing.T) {
+	// Test case for non-existent file
+	_, err := ConvertN8nJSON("non_existent_file.json")
+	if err == nil {
+		t.Fatal("expected an error for non-existent file, but got nil")
+	}
+
+	// Test case for invalid JSON content
+	tmpfile, err := ioutil.TempFile("", "invalid.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Remove(tmpfile.Name())
+
+	if _, err := tmpfile.Write([]byte("invalid json")); err != nil {
+		t.Fatal(err)
+	}
+	if err := tmpfile.Close(); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = ConvertN8nJSON(tmpfile.Name())
+	if err == nil {
+		t.Fatal("expected an error for invalid JSON, but got nil")
 	}
 }
