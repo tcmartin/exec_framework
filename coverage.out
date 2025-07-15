@@ -1,4 +1,4 @@
 mode: set
-go-workflow/pkg/store/dynamodb_client.go:10.63,12.19 2 1
-go-workflow/pkg/store/dynamodb_client.go:12.19,14.6 1 0
-go-workflow/pkg/store/dynamodb_client.go:15.5,15.44 1 1
+go-workflow/pkg/store/dynamodb_client.go:11.108,16.19 2 1
+go-workflow/pkg/store/dynamodb_client.go:16.19,18.6 1 0
+go-workflow/pkg/store/dynamodb_client.go:19.5,19.44 1 1

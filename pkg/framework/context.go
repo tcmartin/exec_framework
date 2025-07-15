@@ -20,12 +20,16 @@ type DynamoDBPutItemAPI interface {
 	PutItem(ctx context.Context, params *dynamodb.PutItemInput, optFns ...func(*dynamodb.Options)) (*dynamodb.PutItemOutput, error)
 }
 
+// DynamoDBClientFactory defines a function type for creating DynamoDB clients dynamically.
+type DynamoDBClientFactory func(ctx context.Context, region, accessKeyID, secretAccessKey string) (DynamoDBPutItemAPI, error)
+
 // Context holds shared clients and config
 type Context struct {
     Ctx            context.Context
     HTTPClient     *retryablehttp.Client
     LangChain      LangChainClient
     DynamoDBClient DynamoDBPutItemAPI
+    DynamoDBClientFactory DynamoDBClientFactory
     Logger         *zap.SugaredLogger
     Metrics        *Metrics
     Env            map[string]string
