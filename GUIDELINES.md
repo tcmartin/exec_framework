@@ -14,6 +14,7 @@ This document outlines the recommended workflow for the Gemini CLI Agent when un
     *   **Immediately after making changes, run the relevant automated tests.** This includes any newly created tests for the feature, as well as existing project tests (e.g., `go test`, `npm test`, `pytest`) to detect regressions.
     *   **Continuously check for build, linting, and type-checking errors** (e.g., `go build`, `ruff check`, `tsc`).
     *   If tests fail or errors occur, diagnose and fix the issues. Repeat the build and verify loop until all tests pass and no errors are present.
+    *   **Commit Small Wins:** Whenever all tests pass and a logical unit of work is complete, commit the changes. This creates stable checkpoints and facilitates easier debugging if issues arise later.
     *   This iterative process ensures that issues are caught early and that the codebase remains stable.
 
 3.  **Final Verification and Completion**:
