@@ -63,4 +63,14 @@ go-workflow/pkg/nodes/openai_node.go:26.9,27.69 2 1
 go-workflow/pkg/nodes/openai_node.go:27.69,29.10 1 1
 go-workflow/pkg/nodes/openai_node.go:30.9,30.34 1 1
 go-workflow/pkg/nodes/openai_node.go:32.5,32.20 1 1
+go-workflow/pkg/nodes/set_node.go:14.81,19.2 1 1
+go-workflow/pkg/nodes/set_node.go:22.118,24.31 2 1
+go-workflow/pkg/nodes/set_node.go:24.31,28.27 2 1
+go-workflow/pkg/nodes/set_node.go:28.27,30.4 1 1
+go-workflow/pkg/nodes/set_node.go:33.3,33.33 1 1
+go-workflow/pkg/nodes/set_node.go:33.33,35.4 1 1
+go-workflow/pkg/nodes/set_node.go:38.3,38.34 1 1
+go-workflow/pkg/nodes/set_node.go:38.34,40.4 1 1
+go-workflow/pkg/nodes/set_node.go:41.3,41.36 1 1
+go-workflow/pkg/nodes/set_node.go:43.2,43.21 1 1
 go-workflow/pkg/nodes/wait_node.go:12.118,15.2 2 1
