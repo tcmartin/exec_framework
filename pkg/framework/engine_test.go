@@ -52,7 +52,7 @@ func TestWorkflow_Run(t *testing.T) {
 			},
 		}
 
-		err := workflow.Run(ctx, "node1")
+		err := workflow.Run(ctx, "node1", nil)
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
@@ -90,7 +90,7 @@ func TestWorkflow_Run(t *testing.T) {
 			},
 		}
 
-		err := workflow.Run(ctx, "node1")
+		err := workflow.Run(ctx, "node1", nil)
 		if err == nil {
 			t.Fatal("expected an error, but got nil")
 		}
@@ -146,7 +146,7 @@ func TestWorkflow_Run_DataPassing(t *testing.T) {
 		},
 	}
 
-	err := workflow.Run(ctx, "node1")
+			err := workflow.Run(ctx, "node1", nil)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
