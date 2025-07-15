@@ -86,4 +86,12 @@ go-workflow/pkg/nodes/set_node.go:38.3,38.34 1 1
 go-workflow/pkg/nodes/set_node.go:38.34,40.4 1 1
 go-workflow/pkg/nodes/set_node.go:41.3,41.36 1 1
 go-workflow/pkg/nodes/set_node.go:43.2,43.21 1 1
+go-workflow/pkg/nodes/split_in_batches_node.go:15.63,17.2 1 1
+go-workflow/pkg/nodes/split_in_batches_node.go:20.129,21.22 1 1
+go-workflow/pkg/nodes/split_in_batches_node.go:21.22,23.3 1 1
+go-workflow/pkg/nodes/split_in_batches_node.go:25.2,26.48 2 1
+go-workflow/pkg/nodes/split_in_batches_node.go:26.48,28.24 2 1
+go-workflow/pkg/nodes/split_in_batches_node.go:28.24,30.4 1 1
+go-workflow/pkg/nodes/split_in_batches_node.go:32.3,32.76 1 1
+go-workflow/pkg/nodes/split_in_batches_node.go:35.2,35.21 1 1
 go-workflow/pkg/nodes/wait_node.go:12.118,15.2 2 1
