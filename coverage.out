@@ -95,3 +95,5 @@ go-workflow/pkg/nodes/split_in_batches_node.go:28.24,30.4 1 1
 go-workflow/pkg/nodes/split_in_batches_node.go:32.3,32.76 1 1
 go-workflow/pkg/nodes/split_in_batches_node.go:35.2,35.21 1 1
 go-workflow/pkg/nodes/wait_node.go:12.118,15.2 2 1
+go-workflow/pkg/nodes/webhook_trigger.go:11.42,13.2 1 1
+go-workflow/pkg/nodes/webhook_trigger.go:16.125,18.2 1 1
