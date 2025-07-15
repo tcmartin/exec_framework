@@ -7,13 +7,13 @@ import (
     "gopkg.in/yaml.v3"
 )
 
-// WorkflowDef captures nodes and connections
+// WorkflowDef captures a node list + connections
 type WorkflowDef struct {
     Nodes       []string            `yaml:"nodes"`
     Connections map[string][]string `yaml:"connections"`
 }
 
-// LoadFromYAML reads a YAML file into WorkflowDef
+// LoadFromYAML parses a YAML workflow definition
 func LoadFromYAML(path string) (*WorkflowDef, error) {
     data, err := ioutil.ReadFile(path)
     if err != nil {
@@ -26,7 +26,7 @@ func LoadFromYAML(path string) (*WorkflowDef, error) {
     return &def, nil
 }
 
-// ConvertN8nJSON parses an n8n JSON flow and emits WorkflowDef stub
+// ConvertN8nJSON maps an n8n flow JSON to WorkflowDef stub
 func ConvertN8nJSON(path string) (*WorkflowDef, error) {
     data, err := ioutil.ReadFile(path)
     if err != nil {
@@ -40,12 +40,11 @@ func ConvertN8nJSON(path string) (*WorkflowDef, error) {
     for from, lists := range n8n.Connections {
         for _, arr := range lists {
             for _, step := range arr {
-                to := fmt.Sprintf("%v", step["node"])
+                to := fmt.Sprint(step["node"])
                 def.Connections[from] = append(def.Connections[from], to)
             }
         }
     }
-    // Nodes list inferred from keys
     for k := range def.Connections {
         def.Nodes = append(def.Nodes, k)
     }

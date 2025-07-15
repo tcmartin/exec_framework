@@ -5,6 +5,7 @@ import (
     "net/http/httptest"
     "testing"
     "time"
+
     retryablehttp "github.com/hashicorp/go-retryablehttp"
 )
 

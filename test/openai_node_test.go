@@ -4,37 +4,29 @@ import (
     "context"
     "encoding/json"
     "testing"
-    "go-workflow/pkg/nodes"
+
     "go-workflow/pkg/framework"
+    "go-workflow/pkg/nodes"
+    "github.com/tmc/langchaingo/llms"
 )
 
-// fakeLangChainClient implements the minimal interface needed by OpenAINode
-// specifically, the ChatCompletion method
-var _ framework.LangChainClient = (*fakeLangChainClient)(nil)
+// fakeLangChainClient implements the minimal interface
+// required by OpenAINode
+type fakeLangChainClient struct{}
 
-type fakeLangChainClient struct {}
-
-func (f *fakeLangChainClient) ChatCompletion(ctx context.Context, req langchaingo.ChatCompletionRequest) (langchaingo.ChatCompletionResponse, error) {
-    // Echo back the user's payload JSON in a deterministic field
-    // Assume the last message is the user content
+func (f *fakeLangChainClient) GenerateFromSinglePrompt(ctx context.Context, prompt string, options ...llms.CallOption) (string, error) {
+    // echo user payload
     var payload map[string]interface{}
-    _ = json.Unmarshal([]byte(req.Messages[len(req.Messages)-1].Content[len("Payload: "):]), &payload)
-    // Construct a fake response wrapping the payload
+    _ = json.Unmarshal([]byte(prompt[len("test-prompt\n\nPayload: "):]), &payload)
     contentBytes, _ := json.Marshal(payload)
-    return langchaingo.ChatCompletionResponse{
-        Choices: []langchaingo.ChatChoice{{Message: langchaingo.ChatMessage{Content: string(contentBytes)}}},
-    }, nil
+    return string(contentBytes), nil
 }
 
 func TestOpenAINode(t *testing.T) {
     fake := &nodes.OpenAINode{SystemPrompt: "test-prompt"}
     ctx := &framework.Context{
-        Ctx:        context.Background(),
-        LangChain:  &fakeLangChainClient{},
-        Logger:     nil,
-        Metrics:    nil,
-        HTTPClient: nil,
-        Env:        nil,
+        Ctx:       context.Background(),
+        LangChain: &fakeLangChainClient{},
     }
     input := []map[string]interface{}{{"foo":"bar"}}
     out, err := fake.Execute(ctx, input)

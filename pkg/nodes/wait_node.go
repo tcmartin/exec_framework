@@ -1,12 +1,12 @@
 package nodes
 
 import (
-    "framework"
-    "time"
+    "go-workflow/pkg/framework"
     "math/rand"
+    "time"
 )
 
-// WaitNode sleeps for up to MaxSeconds
+// WaitNode waits up to MaxSeconds randomly
 type WaitNode struct{ MaxSeconds int }
 
 func (n *WaitNode) Execute(ctx *framework.Context, input []map[string]interface{}) ([]map[string]interface{}, error) {

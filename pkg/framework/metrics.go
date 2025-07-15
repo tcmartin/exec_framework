@@ -10,7 +10,7 @@ type Metrics struct {
     NodeErrors   *prometheus.CounterVec
 }
 
-// NewMetrics registers and returns metrics
+// NewMetrics registers and returns collectors
 func NewMetrics() *Metrics {
     m := &Metrics{
         NodeDuration: prometheus.NewHistogramVec(

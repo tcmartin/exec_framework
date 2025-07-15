@@ -4,11 +4,11 @@ import (
     "go.uber.org/zap"
 )
 
-// NewLogger returns a SugaredLogger with production config
+// NewLogger returns a production-ready SugaredLogger
 func NewLogger() (*zap.SugaredLogger, error) {
-    logger, err := zap.NewProduction()
+    lg, err := zap.NewProduction()
     if err != nil {
         return nil, err
     }
-    return logger.Sugar(), nil
+    return lg.Sugar(), nil
 }

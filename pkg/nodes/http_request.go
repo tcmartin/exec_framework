@@ -3,17 +3,16 @@ package nodes
 import (
     "bytes"
     "encoding/json"
-    "framework"
+    "go-workflow/pkg/framework"
     "html/template"
-    "net/http"
+    retryablehttp "github.com/hashicorp/go-retryablehttp"
 )
 
-// HTTPRequest performs templated requests with retries
+// HTTPRequest performs templated HTTP calls
 type HTTPRequest struct {
     Method      string
     URLTemplate *template.Template
     BodyTmpl    *template.Template
-    Headers     template.Header
 }
 
 func NewHTTPRequest(method, urlTmpl, bodyTmpl string) *HTTPRequest {
@@ -45,7 +44,6 @@ func (n *HTTPRequest) Execute(ctx *framework.Context, inputs []map[string]interf
 
         var parsed map[string]interface{}
         json.NewDecoder(resp.Body).Decode(&parsed)
-
         if items, ok := parsed["items"].([]interface{}); ok {
             for _, it := range items {
                 out = append(out, it.(map[string]interface{}))
