@@ -120,6 +120,27 @@ The **Go Workflow Framework** is a modular, composable engine for defining and e
 
 * **Configuration**: swap YAML loader for JSON or database-backed definitions.
 
+## Exposing as HTTP API
+
+To trigger workflows via external services (e.g. Python scripts, webhooks) you can wrap the engine in a simple HTTP server:
+
+1. **Create a secure endpoint** (e.g. `/run`) expecting a shared secret header:
+   ```go
+   http.HandleFunc("/run", func(w http.ResponseWriter, r *http.Request) {
+       if r.Header.Get("X-Secret") != os.Getenv("WORKFLOW_SECRET") {
+           http.Error(w, "Unauthorized", http.StatusUnauthorized)
+           return
+       }
+       go func() {
+           if err := wf.Run(ctx, "Trigger"); err != nil {
+               logger.Errorf("workflow failed: %v", err)
+           }
+       }()
+       w.WriteHeader(http.StatusAccepted)
+       w.Write([]byte("Workflow started"))
+   })
+   log.Fatal(http.ListenAndServe(":8080", nil))
+
 ## Summary
 
 This framework brings the power of n8n-style workflows to Go, combining:

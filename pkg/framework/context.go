@@ -14,12 +14,18 @@ type LangChainClient interface {
     GenerateFromSinglePrompt(ctx context.Context, prompt string, options ...llms.CallOption) (string, error)
 }
 
+// DynamoDBPutItemAPI defines the interface for the PutItem function.
+// We use this interface to test the code without needing a real DynamoDB instance.
+type DynamoDBPutItemAPI interface {
+	PutItem(ctx context.Context, params *dynamodb.PutItemInput, optFns ...func(*dynamodb.Options)) (*dynamodb.PutItemOutput, error)
+}
+
 // Context holds shared clients and config
 type Context struct {
     Ctx            context.Context
     HTTPClient     *retryablehttp.Client
     LangChain      LangChainClient
-    DynamoDBClient *dynamodb.Client
+    DynamoDBClient DynamoDBPutItemAPI
     Logger         *zap.SugaredLogger
     Metrics        *Metrics
     Env            map[string]string
