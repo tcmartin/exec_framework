@@ -6,8 +6,10 @@ toolchain go1.24.3
 
 require (
 	github.com/aws/aws-sdk-go-v2/config v1.29.17
+	github.com/aws/aws-sdk-go-v2/credentials v1.17.70
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.44.0
 	github.com/hashicorp/go-retryablehttp v0.7.0
+	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/prometheus/client_golang v1.16.0
 	github.com/tmc/langchaingo v0.1.0
 	go.uber.org/zap v1.19.1
@@ -16,7 +18,6 @@ require (
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.36.5 // indirect
-	github.com/aws/aws-sdk-go-v2/credentials v1.17.70 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.32 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.36 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.6.36 // indirect
